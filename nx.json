@@ -1,5 +1,5 @@
 {
-  "npmScope": "freezer",
+  "npmScope": "lager",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": {
@@ -11,7 +11,7 @@
     "nx.json": "*"
   },
   "projects": {
-    "freezer": {
+    "lager": {
       "tags": []
     },
     "api": {

@@ -15,16 +15,16 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
 
   const options = new DocumentBuilder()
-    .setTitle('Freezer API')
-    .setDescription('An API that lets you track what stuff you have frozen')
+    .setTitle('Lager API')
+    .setDescription('An API that lets you track what stuff you have stored')
     .setVersion('1.0')
-    .addTag('Freezer')
+    .addTag('Lager')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
   const port = process.env.port || 80;
-  app.use('/', express.static(path.join(__dirname, '..', 'freezer')));
+  app.use('/', express.static(path.join(__dirname, '..', 'lager')));
   await app.listen(port, () => {
     console.log('Listening at http://localhost:' + port + '/' + globalPrefix);
   });

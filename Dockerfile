@@ -3,7 +3,7 @@
 # --------------------------
 FROM node:12.16.1-alpine
 
-WORKDIR /home/freezer
+WORKDIR /home/lager
 
 COPY package*.json ./
 RUN npm install
@@ -14,7 +14,7 @@ COPY angular.json tsconfig.json nx.json tslint.json jest.config.js ./
 COPY apps ./apps
 
 RUN npm run nx -- build api && \
-    npm run nx -- build freezer && \
+    npm run nx -- build lager && \
     npm prune --production
 
 # --------------------------
@@ -23,9 +23,9 @@ RUN npm run nx -- build api && \
 FROM node:12.16.1-alpine
 EXPOSE 80
 
-WORKDIR /home/freezer
+WORKDIR /home/lager
 
-COPY --from=0 /home/freezer/node_modules ./node_modules
-COPY --from=0 /home/freezer/dist ./dist
+COPY --from=0 /home/lager/node_modules ./node_modules
+COPY --from=0 /home/lager/dist ./dist
 
 CMD node dist/apps/api/main.js

@@ -1,51 +1,89 @@
 import { v4 as uuidv4 } from 'uuid';
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiProperty } from '@nestjs/swagger';
 
-export class FrozenItemDto {
+export class LagerItemDto {
   @ApiProperty({ description: 'The unique id', example: uuidv4() })
   readonly id: string;
-  @ApiProperty({ description: 'The date the entry was created', example: new Date() })
+  @ApiProperty({
+    description: 'The date the entry was created',
+    example: new Date()
+  })
   readonly created: Date;
-  @ApiProperty({ description: 'The name of the frozen item', example: 'Curry' })
+  @ApiProperty({ description: 'The name of the lager item', example: 'Curry' })
   name: string;
-  @ApiProperty({ description: 'The quantity of how many are in store', example: 3 })
+  @ApiProperty({
+    description: 'The quantity of how many are in store',
+    example: 3
+  })
   quantity: number;
   @ApiProperty({ description: 'The unit of the quantity', example: 'kg' })
   unit: string;
 }
-export class FreezerSlotDto {
+export class LagerPlatzDto {
   @ApiProperty({ description: 'The unique id', example: uuidv4() })
   readonly id: string;
-  @ApiProperty({ description: 'The date the entry was created', example: new Date() })
+  @ApiProperty({
+    description: 'The date the entry was created',
+    example: new Date()
+  })
   readonly created: Date;
-  @ApiProperty({ description: 'The name of the freezer slot', example: 'Bottom drawer' })
+  @ApiProperty({
+    description: 'The name of the lager platz',
+    example: 'Bottom drawer'
+  })
   name: string;
-  @ApiProperty({ description: 'The items stored in this freezer slot', type: [FrozenItemDto] })
-  frozenItems: FrozenItemDto[];
+  @ApiProperty({
+    description: 'The items stored in this lager platz',
+    type: [LagerItemDto]
+  })
+  lagerItems: LagerItemDto[];
 }
-export class FreezerDto {
+export class LagerDto {
   @ApiProperty({ description: 'The unique id', example: uuidv4() })
   readonly id: string;
-  @ApiProperty({ description: 'The date the entry was created', example: new Date() })
+  @ApiProperty({
+    description: 'The date the entry was created',
+    example: new Date()
+  })
   readonly created: Date;
-  @ApiProperty({ description: 'The name', example: 'The downstairs freezer' })
+  @ApiProperty({ description: 'The name', example: 'The downstairs lager' })
   name: string;
-  @ApiProperty({ description: 'The freezer slots attributed to this freezer', type: [FreezerSlotDto] })
-  slots: FreezerSlotDto[];
+  @ApiProperty({
+    description: 'The lager platzs attributed to this lager',
+    type: [LagerPlatzDto]
+  })
+  platzs: LagerPlatzDto[];
 }
-export class CreateNewFreezerDto {
-  @ApiProperty({ description: 'The name of the new freezer', example: 'Upstairs' })
+export class CreateNewLagerDto {
+  @ApiProperty({
+    description: 'The name of the new lager',
+    example: 'Upstairs'
+  })
   name: string;
 }
-export class CreateNewFreezerSlotDto {
-  @ApiProperty({ description: 'The name of the new Freezer slot', example: 'Bottom drawer' })
+export class CreateNewLagerPlatzDto {
+  @ApiProperty({
+    description: 'The name of the new Lager platz',
+    example: 'Bottom drawer'
+  })
   name: string;
 }
-export class CreateNewFrozenItemDto {
-  @ApiProperty({ description: 'The name of the new frozen item', example: 'My new frozen item' })
+export class CreateNewLagerItemDto {
+  @ApiProperty({
+    description: 'The name of the new lager item',
+    example: 'My new lager item'
+  })
   name: string;
-  @ApiProperty({ description: 'The amount of the newly created frozen items', example: 12, required: false })
+  @ApiProperty({
+    description: 'The amount of the newly created lager items',
+    example: 12,
+    required: false
+  })
   quantity?: number;
-  @ApiProperty({ description: 'The unit of the quantity', example: 'kg', required: false })
+  @ApiProperty({
+    description: 'The unit of the quantity',
+    example: 'kg',
+    required: false
+  })
   unit?: string;
 }

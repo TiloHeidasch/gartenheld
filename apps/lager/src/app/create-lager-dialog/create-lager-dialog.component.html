@@ -1,0 +1,12 @@
+<div class="dialog-heading">Lager hinzufügen</div>
+<div mat-dialog-content>
+  <p>Wie soll das neue Lager heissen?</p>
+  <mat-form-field class="dialog-form-field">
+    <mat-label>Lager Name</mat-label>
+    <input matInput [(ngModel)]="name" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Abbrechen</button>
+  <button mat-button [mat-dialog-close]="name">Erstellen</button>
+</div>

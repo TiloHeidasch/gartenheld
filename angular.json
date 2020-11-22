@@ -1,41 +1,36 @@
 {
   "version": 1,
   "projects": {
-    "freezer": {
+    "lager": {
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
         }
       },
-      "root": "apps/freezer",
-      "sourceRoot": "apps/freezer/src",
-      "prefix": "freezer",
+      "root": "apps/lager",
+      "sourceRoot": "apps/lager/src",
+      "prefix": "lager",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/freezer",
-            "index": "apps/freezer/src/index.html",
-            "main": "apps/freezer/src/main.ts",
-            "polyfills": "apps/freezer/src/polyfills.ts",
-            "tsConfig": "apps/freezer/tsconfig.app.json",
+            "outputPath": "dist/apps/lager",
+            "index": "apps/lager/src/index.html",
+            "main": "apps/lager/src/main.ts",
+            "polyfills": "apps/lager/src/polyfills.ts",
+            "tsConfig": "apps/lager/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/freezer/src/favicon.ico",
-              "apps/freezer/src/assets"
-            ],
-            "styles": [
-              "apps/freezer/src/styles.scss"
-            ],
+            "assets": ["apps/lager/src/favicon.ico", "apps/lager/src/assets"],
+            "styles": ["apps/lager/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/freezer/src/environments/environment.ts",
-                  "with": "apps/freezer/src/environments/environment.prod.ts"
+                  "replace": "apps/lager/src/environments/environment.ts",
+                  "with": "apps/lager/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -64,41 +59,38 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "freezer:build",
-            "proxyConfig": "apps/freezer/proxy.conf.json"
+            "browserTarget": "lager:build",
+            "proxyConfig": "apps/lager/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "freezer:build:production"
+              "browserTarget": "lager:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "freezer:build"
+            "browserTarget": "lager:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/freezer/tsconfig.app.json",
-              "apps/freezer/tsconfig.spec.json"
+              "apps/lager/tsconfig.app.json",
+              "apps/lager/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/freezer/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/lager/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/freezer/jest.config.js",
-            "tsConfig": "apps/freezer/tsconfig.spec.json",
+            "jestConfig": "apps/lager/jest.config.js",
+            "tsConfig": "apps/lager/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "apps/freezer/src/test-setup.ts"
+            "setupFile": "apps/lager/src/test-setup.ts"
           }
         }
       }
@@ -116,9 +108,7 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": [
-              "apps/api/src/assets"
-            ]
+            "assets": ["apps/api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -147,10 +137,7 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/api/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/api/**"]
           }
         },
         "test": {
@@ -176,10 +163,7 @@
               "libs/api-interfaces/tsconfig.lib.json",
               "libs/api-interfaces/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/api-interfaces/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/api-interfaces/**"]
           }
         },
         "test": {
@@ -204,5 +188,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "freezer"
+  "defaultProject": "lager"
 }

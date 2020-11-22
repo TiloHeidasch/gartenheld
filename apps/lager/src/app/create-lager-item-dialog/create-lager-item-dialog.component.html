@@ -1,0 +1,64 @@
+<div class="dialog-heading">Lagerware hinzufügen</div>
+<div mat-dialog-content>
+  <p>Wie soll die neue Lagerware heissen?</p>
+  <mat-form-field class="dialog-form-field">
+    <mat-label>Name</mat-label>
+    <input
+      matInput
+      [(ngModel)]="data.name"
+      [formControl]="nameFormControl"
+      [errorStateMatcher]="nameMatcher"
+    />
+    <mat-error *ngIf="nameFormControl.hasError('required')">
+      Name ist <strong>Pflicht</strong>
+    </mat-error>
+  </mat-form-field>
+  <p>Wieviele sind eingelagert?</p>
+  <mat-form-field class="dialog-form-field">
+    <mat-label>Menge</mat-label>
+    <input
+      type="number"
+      matInput
+      [(ngModel)]="data.quantity"
+      [formControl]="quantityFormControl"
+      [errorStateMatcher]="quantityMatcher"
+    />
+    <mat-error *ngIf="quantityFormControl.hasError('min')">
+      Menge muss <strong>größer als 0</strong> sein
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="dialog-form-field">
+    <mat-label>Einheit</mat-label>
+    <input matInput [(ngModel)]="data.unit" />
+  </mat-form-field>
+  <p>Auf welchem Lagerplatz ist die Ware eingelagert?</p>
+  <mat-form-field class="dialog-form-field">
+    <mat-label>Platz</mat-label>
+    <mat-error *ngIf="platzFormControl.hasError('required')">
+      Platz ist <strong>Pflicht</strong>
+    </mat-error>
+    <mat-select
+      [(value)]="data.platz"
+      [formControl]="platzFormControl"
+      [errorStateMatcher]="platzMatcher"
+    >
+      <mat-option *ngFor="let platz of platzs" [value]="platz">
+        {{ platz.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Abbrechen</button>
+  <button
+    mat-button
+    [disabled]="
+      nameFormControl.hasError('required') ||
+      platzFormControl.hasError('required') ||
+      quantityFormControl.hasError('min')
+    "
+    [mat-dialog-close]="data"
+  >
+    Erstellen
+  </button>
+</div>

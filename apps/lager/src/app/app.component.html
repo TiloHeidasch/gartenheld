@@ -1,0 +1,160 @@
+<mat-toolbar color="primary" class="toolbar">
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>{{ activeLager === undefined ? 'Lager' : activeLager.name }}</span>
+  <button
+    class="menu-button"
+    *ngIf="activeLager !== undefined"
+    mat-icon-button
+    [matMenuTriggerFor]="lagermenu"
+  >
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #lagermenu="matMenu">
+    <button mat-menu-item (click)="editLagerName()">
+      <mat-icon>edit</mat-icon>
+      <span>Lager umbenennen</span>
+    </button>
+    <button mat-menu-item class="delete" (click)="deleteLager()">
+      <mat-icon class="delete">delete_forever</mat-icon>
+      <span>Lager löschen</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+<mat-drawer-container class="drawer-container">
+  <mat-drawer #drawer class="sidenav" mode="over">
+    <mat-nav-list class="sidebar-navigation-list">
+      <mat-list-item
+        [ngClass]="{ 'active-nav-item': lager === activeLager }"
+        (click)="setActiveLager(lager)"
+        *ngFor="let lager of lagers"
+        >{{ lager.name }}
+      </mat-list-item>
+      <mat-list-item (click)="createNewLager()">Lager hinzufügen</mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+  <div class="sidenav-content" *ngIf="activeLager !== undefined">
+    <mat-card
+      class="lager-platz-card"
+      *ngFor="let lagerPlatz of activeLager.platzs; let i = index"
+    >
+      <mat-card-header>
+        <mat-card-title class="lager-platz-title"
+          >{{ lagerPlatz.name }}
+          <button
+            class="menu-button"
+            mat-icon-button
+            [matMenuTriggerFor]="platzmenu"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #platzmenu="matMenu">
+            <button mat-menu-item (click)="editLagerPlatzName(lagerPlatz)">
+              <mat-icon>edit</mat-icon>
+              <span>Lagerplatz umbenennen</span>
+            </button>
+            <button
+              mat-menu-item
+              class="delete"
+              (click)="deleteSlot(lagerPlatz)"
+            >
+              <mat-icon class="delete">delete_forever</mat-icon>
+              <span>Lagerplatz löschen</span>
+            </button>
+          </mat-menu>
+        </mat-card-title>
+        <mat-card-subtitle class="lager-platz-number">{{
+          i + 1
+        }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content
+        *ngIf="lagerPlatz.lagerItems.length > 0"
+        class="lager-platz-lager-items"
+      >
+        <table
+          mat-table
+          [dataSource]="dataSources[i]"
+          matSort
+          (matSortChange)="sortData(i, $event)"
+          class="mat-elevation-z8"
+        >
+          <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          </ng-container>
+
+          <!-- Quantity Column -->
+          <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Menge</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                [ngClass]="{ delete: element.quantity === 1 }"
+                mat-icon-button
+                (click)="reduceQuantity(lagerPlatz, element)"
+              >
+                <mat-icon>remove_circle_outline</mat-icon>
+              </button>
+              {{ element.quantity
+              }}<span *ngIf="element.unit !== undefined">
+                {{ element.unit }}</span
+              >
+              <button
+                mat-icon-button
+                (click)="increaseQuantity(lagerPlatz, element)"
+              >
+                <mat-icon>add_circle_outline</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Edit Column -->
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Bearbeiten</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button [matMenuTriggerFor]="itemmenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #itemmenu="matMenu">
+                <button
+                  mat-menu-item
+                  (click)="editLagerItemName(lagerPlatz, element)"
+                >
+                  <mat-icon>edit</mat-icon>
+                  <span>Lagerware umbenennen</span>
+                </button>
+                <button
+                  mat-menu-item
+                  class="delete"
+                  (click)="deleteItem(lagerPlatz, element)"
+                >
+                  <mat-icon class="delete">delete_forever</mat-icon>
+                  <span>Lagerware löschen</span>
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="new-lager-platz-card">
+      <button mat-icon-button (click)="createNewLagerPlatz()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card>
+    <button
+      class="floating-action-button"
+      (click)="createNewLagerItem()"
+      mat-fab
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</mat-drawer-container>

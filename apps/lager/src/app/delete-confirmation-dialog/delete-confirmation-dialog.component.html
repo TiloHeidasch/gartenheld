@@ -1,0 +1,10 @@
+<div class="dialog-heading">Löschen</div>
+<div mat-dialog-content>
+  <p>Willst du {{ item.name }} löschen?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Abbrechen</button>
+  <button mat-button style="color: #F00;" [mat-dialog-close]="true">
+    Löschen
+  </button>
+</div>
