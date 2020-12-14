@@ -4,28 +4,28 @@ import {
   FormControl,
   Validators,
   FormGroupDirective,
-  NgForm
+  NgForm,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'lager-create-lager-item-dialog',
   templateUrl: './create-lager-item-dialog.component.html',
-  styleUrls: ['./create-lager-item-dialog.component.scss']
+  styleUrls: ['./create-lager-item-dialog.component.scss'],
 })
 export class CreateLagerItemDialogComponent {
   data: { name; platz; quantity; unit } = {
     name: '',
     platz: this.platzs[0],
     quantity: 1,
-    unit: ''
+    unit: '',
   };
 
   nameFormControl = new FormControl('', [Validators.required]);
   nameMatcher = new MyErrorStateMatcher();
   platzFormControl = new FormControl(this.platzs[0], [Validators.required]);
   platzMatcher = new MyErrorStateMatcher();
-  quantityFormControl = new FormControl(1, [Validators.min(1)]);
+  quantityFormControl = new FormControl(0, [Validators.min(0)]);
   quantityMatcher = new MyErrorStateMatcher();
   constructor(
     public dialogRef: MatDialogRef<CreateLagerItemDialogComponent>,
